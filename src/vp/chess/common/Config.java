@@ -9,6 +9,9 @@ public class Config {
     public static final int BOARD_WIDTH = CELL_SIZE * CELLS_PER_ROW;
     public static final int BOARD_HEIGHT = CELL_SIZE * CELLS_PER_COL;
 
+    public static final int IMAGE_SIZE = 60;
+    public static final int IMAGE_OFFSET = (CELL_SIZE - IMAGE_SIZE) / 2;
+
     public static final Color LIGHT_CELL_COLOR = new Color(232, 235, 239);
     public static final Color DARK_CELL_COLOR = new Color(125, 135, 150);
 
