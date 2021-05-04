@@ -1,0 +1,47 @@
+<project name="ChessApp" basedir="." default="main">
+    <property environment="env" />
+
+    <!-- Overrite this using -Djava_home option -->
+    <property name="java_home" value="env.JAVA_HOME" />
+
+    <property name="ant.build.javac.source" value="1.8" />
+    <property name="ant.build.javac.target" value="1.8" />
+    <property name="ant.build.javac.includeantruntime" value="false" />
+    <property name="ant.build.javac.executable" value="${java_home}\\bin\\javac.exe" />
+
+    <property name="src.dir" value="src" />
+    <property name="lib.dir" value="lib" />
+    <property name="build.dir" value="build" />
+    <property name="classes.dir" value="${build.dir}/classes" />
+    <property name="jar.dir" value="${build.dir}/jar" />
+
+    <property name="main-class-src" value="vp/microproject/chess/ChessApp" />
+
+    <target name="clean">
+        <delete dir="${build.dir}" />
+    </target>
+
+    <target name="compile">
+        <mkdir dir="${classes.dir}" />
+        <javac includeantruntime="false" srcdir="${src.dir}" destdir="${classes.dir}" />
+    </target>
+
+    <target name="jar" depends="compile">
+        <mkdir dir="${jar.dir}" />
+        <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}" />
+    </target>
+
+    <target name="run" depends="jar">
+        <exec executable="${java_home}\\bin\\appletviewer.exe">
+            <arg value="-J-classpath" />
+            <arg value="-J${jar.dir}/${ant.project.name}.jar;${lib.dir}" />
+            <arg value="-J-Djava.security.policy=file:///${basedir}/${lib.dir}/security/java.policy" />
+            <arg value="${src.dir}\\${main-class-src}.java" />
+        </exec>
+    </target>
+
+    <target name="clean-build" depends="clean,jar" />
+
+    <target name="main" depends="clean,run" />
+
+</project>
