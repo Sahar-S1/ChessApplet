@@ -1,4 +1,4 @@
-package vp.microproject.chess.common;
+package vp.chess.common;
 
 import java.awt.Color;
 

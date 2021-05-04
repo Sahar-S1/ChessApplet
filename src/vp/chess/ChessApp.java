@@ -1,10 +1,10 @@
-package vp.microproject.chess;
+package vp.chess;
 
-import java.applet.Applet;
 import java.awt.Graphics;
+import java.applet.Applet;
 
 /*
-<applet code="vp.microproject.chess.ChessApp" width=800 height=800></applet>
+<applet code="vp.chess.ChessApp" width=800 height=800></applet>
 */
 public class ChessApp extends Applet {
     @Override
