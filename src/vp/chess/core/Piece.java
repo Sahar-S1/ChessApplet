@@ -36,6 +36,11 @@ public abstract class Piece {
         this.pos = pos;
     }
 
+    @Override
+    public String toString() {
+        return this.getPiecesEnumValue().toString();
+    }
+
     public abstract ArrayList<Move> getLegalMoves(GameState state);
 
     public abstract PiecesEnum getPiecesEnumValue();

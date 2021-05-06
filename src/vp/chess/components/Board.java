@@ -53,8 +53,25 @@ public class Board extends Panel implements MouseListener, MouseMotionListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         Cell clickedCell = (Cell) this.getComponentAt(new Point(e.getX(), e.getY()));
-        System.out.println(clickedCell.getPos() + " Pressed");
 
+        String format = "Cell at %2s with %-6s is clicked";
+        System.out.println(String.format(format, clickedCell.getPos(), clickedCell.getPiece()));
+
+        if (this.selectedCell != null) {
+            Piece piece = this.selectedCell.getPiece();
+            this.selectedCell.setPiece(null);
+            this.selectedCell.setHighlightColor(null);
+            clickedCell.setPiece(piece);
+
+            this.selectedCell.repaint();
+            clickedCell.repaint();
+
+            this.selectedCell = null;
+        } else if (clickedCell.getPiece() != null) {
+            this.selectedCell = clickedCell;
+            this.selectedCell.setHighlightColor(SELECTED_COLOR);
+            this.selectedCell.repaint();
+        }
     }
 
     private void setCellsPiecesFromState(GameState state) {
