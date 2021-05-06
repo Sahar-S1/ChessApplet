@@ -54,8 +54,7 @@ public class Board extends Panel implements MouseListener, MouseMotionListener {
     public void mouseClicked(MouseEvent e) {
         Cell clickedCell = (Cell) this.getComponentAt(new Point(e.getX(), e.getY()));
 
-        String format = "Cell at %2s with %-6s is clicked";
-        System.out.println(String.format(format, clickedCell.getPos(), clickedCell.getPiece()));
+        System.out.println(String.format(CLICK_MESSAGE_FORMAT, clickedCell.getPos(), clickedCell.getPiece()));
 
         if (this.selectedCell != null) {
             Piece piece = this.selectedCell.getPiece();

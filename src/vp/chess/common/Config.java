@@ -16,4 +16,9 @@ public class Config {
     public static final Color DARK_CELL_COLOR = new Color(125, 135, 150);
 
     public static final Color SELECTED_COLOR = new Color(255, 251, 204, 128);
+
+    // This format will be formated with two variables,
+    // position (exact 2 letters)
+    // piece (max 6 letters)
+    public static final String CLICK_MESSAGE_FORMAT = "Cell at %1$2s with %2$-6s is clicked";
 }
