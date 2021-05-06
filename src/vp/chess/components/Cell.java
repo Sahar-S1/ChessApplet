@@ -65,6 +65,19 @@ public class Cell extends Component {
         return this;
     }
 
+    public AppletContext getCtx() {
+        return this.ctx;
+    }
+
+    public Piece getPiece() {
+        return this.piece;
+    }
+
+    public Cell setPiece(Piece piece) {
+        this.piece = piece;
+        return this;
+    }
+
     @Override
     public void paint(Graphics g) {
         int size = CELL_SIZE;

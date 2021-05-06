@@ -10,6 +10,10 @@ import java.awt.event.MouseMotionListener;
 import java.applet.AppletContext;
 
 import static vp.chess.common.Config.*;
+
+import vp.chess.core.GameEngine;
+import vp.chess.core.GameState;
+import vp.chess.core.Piece;
 import vp.chess.core.PositionEnum;
 
 public class Board extends Panel implements MouseListener, MouseMotionListener {
@@ -35,7 +39,7 @@ public class Board extends Panel implements MouseListener, MouseMotionListener {
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
 
-        this.repaint();
+        this.setCellsPiecesFromState(GameEngine.getInstance().getCurrentState());
     }
 
     public AppletContext getContext() {
@@ -47,16 +51,17 @@ public class Board extends Panel implements MouseListener, MouseMotionListener {
     }
 
     @Override
-    public void repaint() {
-
-        super.repaint();
-    }
-
-    @Override
     public void mouseClicked(MouseEvent e) {
         Cell clickedCell = (Cell) this.getComponentAt(new Point(e.getX(), e.getY()));
         System.out.println(clickedCell.getPos() + " Pressed");
 
+    }
+
+    private void setCellsPiecesFromState(GameState state) {
+        for (Piece piece : state.getPieces()) {
+            PositionEnum pos = piece.getPos();
+            this.cells[pos.getRow()][pos.getColumn()].setPiece(piece);
+        }
     }
 
     // Do Nothing in mouse methods
