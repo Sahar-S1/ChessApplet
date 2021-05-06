@@ -64,7 +64,7 @@ public class Board extends Panel implements MouseListener, MouseMotionListener {
         }
     }
 
-    // Do Nothing in mouse methods
+    // Do Nothing in other mouse methods
     @Override
     public void mouseDragged(MouseEvent e) {
         // Do Nothing
