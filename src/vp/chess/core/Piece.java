@@ -3,7 +3,7 @@ package vp.chess.core;
 import java.awt.Image;
 import java.util.ArrayList;
 
-import vp.chess.common.PieceImageLoader;
+import vp.chess.common.utils.PieceImageLoader;
 
 public abstract class Piece {
     public enum PiecesEnum {
@@ -41,7 +41,9 @@ public abstract class Piece {
         return this.getPiecesEnumValue().toString();
     }
 
-    public abstract ArrayList<Move> getLegalMoves(GameState state);
+    public abstract ArrayList<MoveConfigEnum> getMoveConfig();
+
+    public abstract ArrayList<MoveConfigEnum> getKillConfig();
 
     public abstract PiecesEnum getPiecesEnumValue();
 }

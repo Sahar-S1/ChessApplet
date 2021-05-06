@@ -1,12 +1,12 @@
 package vp.chess.core.pieces;
 
 import java.util.ArrayList;
+import static java.util.Arrays.asList;
 
 import vp.chess.core.Piece;
 import vp.chess.core.PlayerEnum;
 import vp.chess.core.PositionEnum;
-import vp.chess.core.Move;
-import vp.chess.core.GameState;
+import vp.chess.core.MoveConfigEnum;
 
 public class King extends Piece {
 
@@ -20,9 +20,13 @@ public class King extends Piece {
     }
 
     @Override
-    public ArrayList<Move> getLegalMoves(GameState state) {
-        // TODO Auto-generated method stub
-        return null;
+    public ArrayList<MoveConfigEnum> getMoveConfig() {
+        return new ArrayList<MoveConfigEnum>(asList(MoveConfigEnum.NEIGHNOURS));
+    }
+
+    @Override
+    public ArrayList<MoveConfigEnum> getKillConfig() {
+        return this.getMoveConfig();
     }
 
 }

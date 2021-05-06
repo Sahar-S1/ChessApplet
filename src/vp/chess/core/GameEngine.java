@@ -2,6 +2,7 @@ package vp.chess.core;
 
 import java.util.ArrayList;
 
+import vp.chess.common.utils.MoveUtils;
 import vp.chess.core.pieces.*;
 
 public class GameEngine {
@@ -33,7 +34,7 @@ public class GameEngine {
             row = (player == PlayerEnum.WHITE) ? 6 : 1; // Second or Pawns Row
 
             // Pawns
-            for (PositionEnum pos : PositionEnum.getPositionsByRow(row)) {
+            for (PositionEnum pos : MoveUtils.getRow(row, 0)) {
                 initialPieces.add(new Pawn(pos, player));
             }
 

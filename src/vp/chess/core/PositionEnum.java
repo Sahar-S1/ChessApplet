@@ -1,7 +1,5 @@
 package vp.chess.core;
 
-import java.util.ArrayList;
-
 public enum PositionEnum {
     a0, b0, c0, d0, e0, f0, g0, h0, // 0st Row
     a1, b1, c1, d1, e1, f1, g1, h1, // 1st Row
@@ -13,9 +11,12 @@ public enum PositionEnum {
     a7, b7, c7, d7, e7, f7, g7, h7; // 7st Row
 
     /* row and col should be between between 0 and 7 */
-    public static PositionEnum get(int row, int col) {
-        assert (0 <= row && row <= 7) && (0 <= col && col <= 7);
-        return PositionEnum.valueOf(((char) (col + 97) + Integer.valueOf(row).toString()));
+    public static PositionEnum get(int row, int col) throws IndexOutOfBoundsException {
+        if ((0 <= row && row <= 7) && (0 <= col && col <= 7)) {
+            return PositionEnum.valueOf(((char) (col + 97) + Integer.valueOf(row).toString()));
+        } else {
+            throw new IndexOutOfBoundsException();
+        }
     }
 
     /* Return int between 0 and 7 */
@@ -26,23 +27,5 @@ public enum PositionEnum {
     /* Return int between 0 and 7 */
     public int getColumn() {
         return ((int) this.name().charAt(0)) - 97;
-    }
-
-    public static PositionEnum[] getPositionsByRow(int row) {
-        ArrayList<PositionEnum> positions = new ArrayList<PositionEnum>();
-        for (PositionEnum position : PositionEnum.values()) {
-            if (position.getRow() == row)
-                positions.add(position);
-        }
-        return positions.toArray(new PositionEnum[8]);
-    }
-
-    public static PositionEnum[] getPositionsByCol(int col) {
-        ArrayList<PositionEnum> positions = new ArrayList<PositionEnum>();
-        for (PositionEnum position : PositionEnum.values()) {
-            if (position.getColumn() == col)
-                positions.add(position);
-        }
-        return positions.toArray(new PositionEnum[8]);
     }
 }

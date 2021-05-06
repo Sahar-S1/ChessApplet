@@ -1,4 +1,4 @@
-package vp.chess.common;
+package vp.chess.common.utils;
 
 import java.net.URL;
 import java.util.HashMap;
