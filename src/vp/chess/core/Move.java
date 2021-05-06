@@ -1,5 +1,8 @@
 package vp.chess.core;
 
+import vp.chess.core.pieces.King;
+import vp.chess.core.pieces.Rook;
+
 public class Move {
     private final Piece piece;
     private final PositionEnum src;
@@ -11,6 +14,9 @@ public class Move {
         this.src = src;
         this.dest = dest;
         this.isCastling = isCastling;
+
+        if (this.isCastling)
+            assert (piece instanceof King || piece instanceof Rook);
     }
 
     public Move(Piece piece, PositionEnum src, PositionEnum dest) {
