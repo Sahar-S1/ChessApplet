@@ -43,7 +43,5 @@ public abstract class Piece {
 
     public abstract ArrayList<MoveConfigEnum> getMoveConfig();
 
-    public abstract ArrayList<MoveConfigEnum> getKillConfig();
-
     public abstract PiecesEnum getPiecesEnumValue();
 }

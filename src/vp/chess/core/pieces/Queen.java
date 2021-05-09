@@ -24,9 +24,4 @@ public class Queen extends Piece {
         return new ArrayList<MoveConfigEnum>(asList(MoveConfigEnum.STRAIGHT, MoveConfigEnum.CROSS));
     }
 
-    @Override
-    public ArrayList<MoveConfigEnum> getKillConfig() {
-        return this.getMoveConfig();
-    }
-
 }

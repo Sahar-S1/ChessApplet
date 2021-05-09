@@ -24,9 +24,4 @@ public class Rook extends Piece {
         return new ArrayList<MoveConfigEnum>(asList(MoveConfigEnum.STRAIGHT));
     }
 
-    @Override
-    public ArrayList<MoveConfigEnum> getKillConfig() {
-        return this.getMoveConfig();
-    }
-
 }

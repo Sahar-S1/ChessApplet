@@ -24,9 +24,4 @@ public class Knight extends Piece {
         return new ArrayList<MoveConfigEnum>(asList(MoveConfigEnum.L_SHAPE, MoveConfigEnum.JUMP));
     }
 
-    @Override
-    public ArrayList<MoveConfigEnum> getKillConfig() {
-        return this.getMoveConfig();
-    }
-
 }

@@ -24,9 +24,4 @@ public class King extends Piece {
         return new ArrayList<MoveConfigEnum>(asList(MoveConfigEnum.NEIGHNOURS));
     }
 
-    @Override
-    public ArrayList<MoveConfigEnum> getKillConfig() {
-        return this.getMoveConfig();
-    }
-
 }

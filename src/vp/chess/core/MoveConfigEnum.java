@@ -5,5 +5,5 @@ public enum MoveConfigEnum {
     CROSS, // Like Bishop and Queen
     NEIGHNOURS, // Like King
     L_SHAPE, JUMP, // Like Knight
-    ONE_STEP_AHEAD, ONE_STEP_CROSS // Like Pawn
+    ONE_STEP_AHEAD_MOVE, ONE_STEP_CROSS_KILL, TWO_STEP_AHAED_FIRST_MOVE // Like Pawn
 }
