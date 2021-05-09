@@ -24,10 +24,7 @@ public class MoveUtils {
         ArrayList<PositionEnum> positions = new ArrayList<PositionEnum>();
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                try {
-                    positions.add(PositionEnum.get(row + i, col + j));
-                } catch (IndexOutOfBoundsException exception) {
-                }
+                addPositionIfPossible(positions, row + i, col + j);
             }
         }
         positions.remove(PositionEnum.get(row, col));
@@ -97,7 +94,25 @@ public class MoveUtils {
     // For Knight L-Shaped Moves
     public static ArrayList<PositionEnum> getL(int row, int col) {
         ArrayList<PositionEnum> positions = new ArrayList<PositionEnum>();
-        // TODO: Implement this
+
+        // NW and NE
+        addPositionIfPossible(positions, row - 2, col - 1);
+        addPositionIfPossible(positions, row - 2, col + 1);
+        // WN and WS
+        addPositionIfPossible(positions, row - 1, col - 2);
+        addPositionIfPossible(positions, row + 1, col - 2);
+        // SW and SE
+        addPositionIfPossible(positions, row + 2, col + 1);
+        addPositionIfPossible(positions, row + 2, col - 1);
+        // EN and WN
+        addPositionIfPossible(positions, row - 1, col + 2);
+        addPositionIfPossible(positions, row + 1, col + 2);
+
         return positions;
+    }
+
+    private static void addPositionIfPossible(ArrayList<PositionEnum> positions, int row, int col) {
+        if (PositionEnum.canGet(row, col))
+            positions.add(PositionEnum.get(row, col));
     }
 }
