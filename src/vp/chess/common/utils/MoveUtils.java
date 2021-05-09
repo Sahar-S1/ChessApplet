@@ -37,14 +37,60 @@ public class MoveUtils {
     // Diagonals go from south-west to north-east on a chess board
     public static ArrayList<PositionEnum> getDiagonal(int row, int col) {
         ArrayList<PositionEnum> positions = new ArrayList<PositionEnum>();
-        // TODO: Implement this
+
+        int r, c;
+
+        // Add Positions SW to Current Position
+        r = (row + 1);
+        c = (col - 1);
+        while (PositionEnum.canGet(r, c)) {
+            positions.add(0, PositionEnum.get(r, c));
+            r++;
+            c--;
+        }
+
+        // Add Current Position
+        positions.add(PositionEnum.get(row, col));
+
+        // Add Positions NE to Current Position
+        r = (row - 1);
+        c = (col + 1);
+        while (PositionEnum.canGet(r, c)) {
+            positions.add(PositionEnum.get(r, c));
+            r--;
+            c++;
+        }
+
         return positions;
     }
 
     // Anti-Diagonals go from south-east to north-west on a chess board
     public static ArrayList<PositionEnum> getAntiDiagonal(int row, int col) {
         ArrayList<PositionEnum> positions = new ArrayList<PositionEnum>();
-        // TODO: Implement this
+
+        int r, c;
+
+        // Add Positions SE to Current Position
+        r = (row + 1);
+        c = (col + 1);
+        while (PositionEnum.canGet(r, c)) {
+            positions.add(0, PositionEnum.get(r, c));
+            r++;
+            c++;
+        }
+
+        // Add Current Position
+        positions.add(PositionEnum.get(row, col));
+
+        // Add Positions NW to Current Position
+        r = (row - 1);
+        c = (col - 1);
+        while (PositionEnum.canGet(r, c)) {
+            positions.add(PositionEnum.get(r, c));
+            r--;
+            c--;
+        }
+
         return positions;
     }
 

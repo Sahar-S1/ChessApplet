@@ -19,6 +19,10 @@ public enum PositionEnum {
         }
     }
 
+    public static boolean canGet(int row, int col) {
+        return (0 <= row && row <= 7) && (0 <= col && col <= 7);
+    }
+
     /* Return int between 0 and 7 */
     public int getRow() {
         return Integer.parseInt(this.name().substring(1, 2));
