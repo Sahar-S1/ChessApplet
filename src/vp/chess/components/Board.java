@@ -11,7 +11,6 @@ import java.applet.AppletContext;
 
 import static vp.chess.common.Config.*;
 
-import vp.chess.common.utils.MoveUtils;
 import vp.chess.core.GameEngine;
 import vp.chess.core.GameState;
 import vp.chess.core.Piece;
