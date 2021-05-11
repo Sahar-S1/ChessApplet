@@ -9,6 +9,7 @@ public class MoveUtils {
         for (int i = 0; i < 8; i++) {
             positions.add(PositionEnum.get(row, i));
         }
+        positions.remove(PositionEnum.get(row, col));
         return positions;
     }
 
@@ -17,6 +18,7 @@ public class MoveUtils {
         for (int i = 0; i < 8; i++) {
             positions.add(PositionEnum.get(i, col));
         }
+        positions.remove(PositionEnum.get(row, col));
         return positions;
     }
 
@@ -58,6 +60,7 @@ public class MoveUtils {
             c++;
         }
 
+        positions.remove(PositionEnum.get(row, col));
         return positions;
     }
 
@@ -88,6 +91,7 @@ public class MoveUtils {
             c--;
         }
 
+        positions.remove(PositionEnum.get(row, col));
         return positions;
     }
 
