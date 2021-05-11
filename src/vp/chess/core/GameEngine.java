@@ -62,37 +62,76 @@ public class GameEngine {
             }
             if (config.contains(MoveConfigEnum.ONE_STEP_AHEAD_MOVE)) {
                 int r = (player.isBlack()) ? row + 1 : row - 1;
-                if (PositionEnum.canGet(r, col)) {
+                int c = col;
+                if (PositionEnum.canGet(r, c)) {
                     possiblePositions.add(PositionEnum.get(r, col));
                 }
             }
             if (config.contains(MoveConfigEnum.ONE_STEP_CROSS_KILL)) {
-                // TODO
-                // possiblePositions.add(); // LEFT Cross
-                // possiblePositions.add(); // RIGHT Cross
+                int r = (player.isBlack()) ? row + 1 : row - 1, c;
+                // RIGHT CROSS
+                c = col + 1;
+                if (PositionEnum.canGet(r, c)) {
+                    PositionEnum dest = PositionEnum.get(r, c);
+                    if (posOfPiece.containsKey(dest)) {
+                        possiblePositions.add(dest);
+                    }
+                }
+                // LEFT CROSS
+                c = col - 1;
+                if (PositionEnum.canGet(r, c)) {
+                    PositionEnum dest = PositionEnum.get(r, c);
+                    if (posOfPiece.containsKey(dest)) {
+                        possiblePositions.add(dest);
+                    }
+                }
             }
             if (config.contains(MoveConfigEnum.TWO_STEP_AHAED_FIRST_MOVE)) {
-                // TODO
-                // possiblePositions.add();
+                if (clickedPiece.isFirstMove()) {
+                    possiblePositions.add(PositionEnum.get((player.isBlack()) ? row + 2 : row - 2, col));
+                }
             }
 
             for (PositionEnum dest : possiblePositions) {
-                boolean shouldAdd = true;
+                boolean remove = false;
 
                 // NOTE Don't add position if same player's piece is there
-                if (posOfPiece.containsKey(dest)) {
-                    Piece piece = posOfPiece.get(dest);
-                    if (piece.getPlayer().equals(this.currentPlayer))
-                        shouldAdd = false;
+                if (posOfPiece.containsKey(dest) && posOfPiece.get(dest).getPlayer().equals(this.currentPlayer)) {
+                    remove = true;
                 }
 
                 // NOTE Don't add position if it doen't JUMP and other piece is blocking
                 // NOTE Only block STRAIGHT and CROSS Moves
                 if (!config.contains(MoveConfigEnum.JUMP)) {
-                    // TODO
+                    int dx = dest.getRow() - pos.getRow();
+                    int dy = dest.getColumn() - pos.getColumn();
+                    int xInc = (int) Math.signum(dx);
+                    int yInc = (int) Math.signum(dy);
+                    PositionEnum posToCheck = PositionEnum.get(pos.getRow() + xInc, pos.getColumn() + yInc);
+                    while (posToCheck != dest) {
+                        if (posOfPiece.containsKey(posToCheck)) {
+                            remove = true;
+                            break;
+                        }
+                        posToCheck = PositionEnum.get(posToCheck.getRow() + xInc, posToCheck.getColumn() + yInc);
+                    }
                 }
 
-                if (shouldAdd)
+                // NOTE Remove if ONE_STEP_AHEAD_NO_KILL
+                if (config.contains(MoveConfigEnum.ONE_STEP_AHEAD_NO_KILL)) {
+                    boolean isOneStepAhead = false;
+                    isOneStepAhead = isOneStepAhead || (player.isBlack() && row + 1 == dest.getRow());
+                    isOneStepAhead = isOneStepAhead || (player.isWhite() && row - 1 == dest.getRow());
+                    isOneStepAhead = isOneStepAhead && (col == dest.getColumn());
+
+                    boolean isKill = posOfPiece.containsKey(dest);
+
+                    if (isOneStepAhead && isKill)
+                        remove = true;
+                    System.out.println(remove);
+                }
+
+                if (!remove)
                     possibleMoves.add(new Move(clickedPiece, pos, dest));
             }
         }

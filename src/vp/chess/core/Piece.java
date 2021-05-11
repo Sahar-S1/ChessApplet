@@ -13,11 +13,13 @@ public abstract class Piece {
     private PositionEnum pos;
     private final PlayerEnum player;
     private final Image img;
+    private boolean isFirstMove;
 
     protected Piece(PositionEnum pos, PlayerEnum player) {
         this.pos = pos;
         this.player = player;
         this.img = PieceImageLoader.getImg(this.getPiecesEnumValue(), this.player);
+        this.isFirstMove = true;
     }
 
     public PositionEnum getPos() {
@@ -32,7 +34,13 @@ public abstract class Piece {
         return this.img;
     }
 
+    public boolean isFirstMove() {
+        return this.isFirstMove;
+    }
+
     public void setPos(PositionEnum pos) {
+        if (this.isFirstMove)
+            this.isFirstMove = false;
         this.pos = pos;
     }
 

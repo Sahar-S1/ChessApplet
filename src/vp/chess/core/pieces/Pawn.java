@@ -23,6 +23,7 @@ public class Pawn extends Piece {
     public ArrayList<MoveConfigEnum> getMoveConfig() {
         return new ArrayList<MoveConfigEnum>(asList( // List Start
                 MoveConfigEnum.ONE_STEP_AHEAD_MOVE, // Move: One Step Forward
+                MoveConfigEnum.ONE_STEP_AHEAD_NO_KILL, // NoKill: One Step Forward
                 MoveConfigEnum.ONE_STEP_CROSS_KILL, // Kill: One Step Cross
                 MoveConfigEnum.TWO_STEP_AHAED_FIRST_MOVE// FirstMove: Two Step allowed also
         )); // List End
