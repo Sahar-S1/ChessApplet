@@ -1,6 +1,8 @@
 package vp.chess.core;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import vp.chess.common.utils.MoveUtils;
 import vp.chess.core.pieces.*;
@@ -40,6 +42,7 @@ public class GameEngine {
             ArrayList<MoveConfigEnum> config = clickedPiece.getMoveConfig();
             PositionEnum pos = clickedPiece.getPos();
             int row = pos.getRow(), col = pos.getColumn();
+            Map<PositionEnum, Piece> posOfPiece = this.getPosOfPieces();
 
             // NOTE Add all possible positions according to config
             ArrayList<PositionEnum> possiblePositions = new ArrayList<PositionEnum>();
@@ -73,23 +76,36 @@ public class GameEngine {
                 // possiblePositions.add();
             }
 
-            // NOTE Remove all positions that are blocking if it doen't JUMP
-            if (!config.contains(MoveConfigEnum.JUMP)) {
-                // TODO
-            }
+            for (PositionEnum dest : possiblePositions) {
+                boolean shouldAdd = true;
 
-            // NOTE Remove all positions where same player's pieces are placed
-            // TODO
+                // NOTE Don't add position if same player's piece is there
+                if (posOfPiece.containsKey(dest)) {
+                    Piece piece = posOfPiece.get(dest);
+                    if (piece.getPlayer().equals(this.currentPlayer))
+                        shouldAdd = false;
+                }
 
-            // NOTE Convert Positions to Move
-            for (PositionEnum position : possiblePositions) {
-                // Sorry for bad naming convention!!
-                // position is destination and pos is source
-                possibleMoves.add(new Move(clickedPiece, pos, position));
+                // NOTE Don't add position if it doen't JUMP and other piece is blocking
+                // NOTE Only block STRAIGHT and CROSS Moves
+                if (!config.contains(MoveConfigEnum.JUMP)) {
+                    // TODO
+                }
+
+                if (shouldAdd)
+                    possibleMoves.add(new Move(clickedPiece, pos, dest));
             }
         }
 
         return possibleMoves;
+    }
+
+    public Map<PositionEnum, Piece> getPosOfPieces() {
+        Map<PositionEnum, Piece> posOfPieces = new HashMap<PositionEnum, Piece>();
+        for (Piece piece : this.currentState.getPieces()) {
+            posOfPieces.put(piece.getPos(), piece);
+        }
+        return posOfPieces;
     }
 
     public boolean makeMove(Move move) {
