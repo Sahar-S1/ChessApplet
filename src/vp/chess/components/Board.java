@@ -7,23 +7,27 @@ import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 import java.applet.AppletContext;
 
 import static vp.chess.common.Config.*;
 
-import vp.chess.common.utils.MoveUtils;
 import vp.chess.core.GameEngine;
 import vp.chess.core.GameState;
+import vp.chess.core.Move;
 import vp.chess.core.Piece;
 import vp.chess.core.PositionEnum;
 
 public class Board extends Panel implements MouseListener, MouseMotionListener {
     private final AppletContext ctx;
+    private final GameEngine engine;
     private final Cell[][] cells;
     private Cell selectedCell = null;
+    private ArrayList<Cell> possibleMoveCells;
 
     public Board(AppletContext ctx) {
         this.ctx = ctx;
+        this.engine = GameEngine.getInstance();
 
         this.setLayout(new GridLayout(8, 8, 0, 0));
         this.setPreferredSize(new Dimension(BOARD_WIDTH, BOARD_HEIGHT));
@@ -40,7 +44,7 @@ public class Board extends Panel implements MouseListener, MouseMotionListener {
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
 
-        this.setCellsPiecesFromState(GameEngine.getInstance().getCurrentState());
+        this.setCellsPiecesFromState(this.engine.getCurrentState());
     }
 
     public AppletContext getContext() {
@@ -59,25 +63,39 @@ public class Board extends Panel implements MouseListener, MouseMotionListener {
 
         if (this.selectedCell != null) {
             Piece piece = this.selectedCell.getPiece();
-            this.selectedCell.setPiece(null);
-            this.selectedCell.setHighlightColor(null);
-            clickedCell.setPiece(piece);
+            Cell srcCell = this.selectedCell;
+            Cell destCell = clickedCell;
+            Move move = new Move(piece, srcCell.getPos(), destCell.getPos());
 
-            this.selectedCell.repaint();
-            clickedCell.repaint();
+            if (this.engine.makeMove(move)) {
+                srcCell.setPiece(null);
+                destCell.setPiece(piece);
+            }
+
+            for (Cell cell : this.possibleMoveCells) {
+                cell.setHighlightColor(null);
+                cell.repaint();
+            }
+            srcCell.setHighlightColor(null);
+            destCell.setHighlightColor(null);
+            srcCell.repaint();
+            destCell.repaint();
 
             this.selectedCell = null;
+            this.possibleMoveCells = null;
         } else if (clickedCell.getPiece() != null) {
             this.selectedCell = clickedCell;
-            this.selectedCell.setHighlightColor(SELECTED_COLOR);
-            this.selectedCell.repaint();
 
-            /* TESTING */
-            for (PositionEnum pos : MoveUtils.getL(selectedCell.getPos().getRow(), selectedCell.getPos().getColumn())) {
+            this.possibleMoveCells = new ArrayList<Cell>();
+            for (Move move : this.engine.getPossibleMoves(clickedCell.getPiece())) {
+                PositionEnum pos = move.getDest();
+                this.possibleMoveCells.add(this.cells[pos.getRow()][pos.getColumn()]);
                 this.cells[pos.getRow()][pos.getColumn()].setHighlightColor(POSSIBLE_MOVE_COLOR);
                 this.cells[pos.getRow()][pos.getColumn()].repaint();
             }
-            /* TESTING */
+
+            this.selectedCell.setHighlightColor(SELECTED_COLOR);
+            this.selectedCell.repaint();
         }
     }
 
