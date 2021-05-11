@@ -5,6 +5,7 @@ import vp.chess.core.PositionEnum;
 
 public class MoveUtils {
     public static ArrayList<PositionEnum> getRow(int row, int col) {
+        // If col is -1, the current cell is not removed
         ArrayList<PositionEnum> positions = new ArrayList<PositionEnum>();
         for (int i = 0; i < 8; i++) {
             positions.add(PositionEnum.get(row, i));
@@ -15,6 +16,7 @@ public class MoveUtils {
     }
 
     public static ArrayList<PositionEnum> getColumn(int row, int col) {
+        // If row is -1, the current cell is not removed
         ArrayList<PositionEnum> positions = new ArrayList<PositionEnum>();
         for (int i = 0; i < 8; i++) {
             positions.add(PositionEnum.get(i, col));
