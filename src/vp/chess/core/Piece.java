@@ -44,4 +44,21 @@ public abstract class Piece {
     public abstract ArrayList<MoveConfigEnum> getMoveConfig();
 
     public abstract PiecesEnum getPiecesEnumValue();
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Piece other = (Piece) obj;
+        if (player != other.player)
+            return false;
+        if (pos != other.pos)
+            return false;
+        return true;
+    }
+
 }
