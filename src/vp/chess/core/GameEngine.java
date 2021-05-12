@@ -128,7 +128,6 @@ public class GameEngine {
 
                     if (isOneStepAhead && isKill)
                         remove = true;
-                    System.out.println(remove);
                 }
 
                 if (!remove)
