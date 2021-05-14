@@ -6,3 +6,4 @@ To run Chess Applet following things are required:
 2. [Apache Ant](https://ant.apache.org/bindownload.cgi)    
 
 Run `ant` command in root directory to build and run Chess Applet Program
+To override JAVA_HOME, use `ant -Djava_home path/to/java/home` 
