@@ -23,6 +23,8 @@ public class Config {
 
     public static final Color POSSIBLE_MOVE_COLOR = new Color(102, 255, 0, 128);
 
+    public static final Color KILL_MOVE_COLOR = new Color(221, 44, 0, 128);
+
     // This format will be formated with two variables,
     // position (exact 2 letters)
     // piece (max 6 letters)

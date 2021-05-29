@@ -89,9 +89,10 @@ public class Board extends Panel implements MouseListener, MouseMotionListener {
             this.possibleMoveCells = new ArrayList<Cell>();
             for (Move move : this.engine.getPossibleMoves(clickedCell.getPiece())) {
                 PositionEnum pos = move.getDest();
-                this.possibleMoveCells.add(this.cells[pos.getRow()][pos.getColumn()]);
-                this.cells[pos.getRow()][pos.getColumn()].setHighlightColor(POSSIBLE_MOVE_COLOR);
-                this.cells[pos.getRow()][pos.getColumn()].repaint();
+                Cell cell = this.cells[pos.getRow()][pos.getColumn()];
+                this.possibleMoveCells.add(cell);
+                cell.setHighlightColor((cell.getPiece() != null) ? KILL_MOVE_COLOR : POSSIBLE_MOVE_COLOR);
+                cell.repaint();
             }
 
             this.selectedCell.setHighlightColor(SELECTED_COLOR);
