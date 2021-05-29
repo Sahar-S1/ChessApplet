@@ -7,10 +7,11 @@ import java.awt.Image;
 import javax.imageio.ImageIO;
 
 import vp.chess.core.Piece.PiecesEnum;
+import vp.chess.common.Config;
 import vp.chess.core.PlayerEnum;
 
 public class PieceImageLoader {
-    public static final String urlFormat = "https://commons.m.wikimedia.org/wiki/Special:Redirect/file/Chess_%c%ct60.png";
+    public static final String urlFormat = Config.IMAGE_URL;
 
     public static final Map<PiecesEnum, Character> pieceToCode;
     public static final Map<PlayerEnum, Character> playerToCode;

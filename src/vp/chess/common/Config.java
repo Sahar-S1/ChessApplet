@@ -9,6 +9,10 @@ public class Config {
     public static final int BOARD_WIDTH = CELL_SIZE * CELLS_PER_ROW;
     public static final int BOARD_HEIGHT = CELL_SIZE * CELLS_PER_COL;
 
+    // This format will be formated with two character variables,
+    // Piece Code (k/q/r/b/n/p)
+    // Piece Color (l/d)
+    public static final String IMAGE_URL = "https://commons.m.wikimedia.org/wiki/Special:Redirect/file/Chess_%c%ct60.png";
     public static final int IMAGE_SIZE = 60;
     public static final int IMAGE_OFFSET = (CELL_SIZE - IMAGE_SIZE) / 2;
 
