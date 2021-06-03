@@ -148,11 +148,15 @@ public class GameEngine {
 
     public boolean makeMove(Move move) {
         // Returns succes of makeMove
+        Map<PositionEnum, Piece> posOfPiece = this.getPosOfPieces();
         if (this.getPossibleMoves(move.getPiece()).contains(move)) {
-            for (Piece piece : this.currentState.getPieces()) {
-                if (piece.getPos() == move.getSrc()) {
-                    piece.setPos(move.getDest());
-                }
+            Piece srcPiece = posOfPiece.get(move.getSrc());
+            Piece destPiece = posOfPiece.get(move.getDest());
+            if (destPiece == null) {
+                srcPiece.setPos(move.getDest());
+            } else {
+                this.currentState.getPieces().remove(destPiece);
+                srcPiece.setPos(move.getDest());
             }
             this.nextPlayer();
             return true;
